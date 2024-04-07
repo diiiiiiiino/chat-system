@@ -5,7 +5,7 @@ import com.dino.chat.api.common.exception.ValidationErrorException;
 import com.dino.chat.api.common.validator.RequestValidator;
 import com.dino.chat.api.member.command.application.dto.AdminCreateRequest;
 import com.dino.chat.api.member.command.application.dto.MemberCreateRequest;
-import com.dino.chat.api.member.command.application.validator.annotation.MemberCreateRequestQualifier;
+import com.dino.chat.api.member.command.application.validator.annotation.AdminCreateRequestQualifier;
 import com.dino.chat.api.member.command.domain.Member;
 import com.dino.chat.api.member.command.domain.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +25,7 @@ public class AdminCreateService {
 
     public AdminCreateService(MemberRepository memberRepository,
                               PasswordEncoder passwordEncoder,
-                              @MemberCreateRequestQualifier RequestValidator<AdminCreateRequest> requestValidator) {
+                              @AdminCreateRequestQualifier RequestValidator<AdminCreateRequest> requestValidator) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.requestValidator = requestValidator;
@@ -62,7 +62,7 @@ public class AdminCreateService {
             throw new ValidationErrorException("Request has invalid values", errors);
         }
 
-        Member admin = MemberCreateRequest.newAdmin(request.getMemberCreateRequest(), passwordEncoder);
+        Member admin = AdminCreateRequest.newAdmin(request, passwordEncoder);
 
         memberRepository.save(admin);
     }

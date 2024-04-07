@@ -1,7 +1,6 @@
 package com.dino.chat.api.friend.presentation;
 
 import com.dino.chat.api.common.http.response.DataResponse;
-import com.dino.chat.api.common.http.response.PagingResponse;
 import com.dino.chat.api.friend.query.FriendDto;
 import com.dino.chat.api.friend.query.FriendQueryService;
 import lombok.RequiredArgsConstructor;

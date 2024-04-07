@@ -22,22 +22,14 @@ public class MemberCreateRequest {
     private String password;
     private String name;
     private String mobile;
-    private Long householdId;
     private String inviteCode;
 
-    public static MemberCreateRequest of(String loginId, String password, String name, String mobile, Long householdId, String inviteCode){
-        return new MemberCreateRequest(loginId, password, name, mobile, householdId, inviteCode);
+    public static MemberCreateRequest of(String loginId, String password, String name, String mobile, String inviteCode){
+        return new MemberCreateRequest(loginId, password, name, mobile, inviteCode);
     }
 
     public static Member newMember(MemberCreateRequest request, PasswordEncoder passwordEncoder){
         List<Function<Member, MemberAuthority>> functions = List.of(member -> MemberAuthority.of(member, Authority.of(AuthorityEnum.ROLE_MEMBER)));
-        return Member.of(request.getLoginId(), Password.of(request.getPassword(), passwordEncoder), request.getName(), Mobile.of(request.getMobile()), functions);
-    }
-
-    public static Member newAdmin(MemberCreateRequest request, PasswordEncoder passwordEncoder){
-        List<Function<Member, MemberAuthority>> functions = List.of(
-                member -> MemberAuthority.of(member, Authority.of(AuthorityEnum.ROLE_ADMIN)),
-                member -> MemberAuthority.of(member, Authority.of(AuthorityEnum.ROLE_MEMBER)));
         return Member.of(request.getLoginId(), Password.of(request.getPassword(), passwordEncoder), request.getName(), Mobile.of(request.getMobile()), functions);
     }
 }

@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: ${DB_URL_LOC}
+    username: ${DB_USER_LOC}
+    password: ${DB_PW_LOC}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type: trace

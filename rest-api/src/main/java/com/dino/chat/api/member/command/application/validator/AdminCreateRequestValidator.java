@@ -4,8 +4,8 @@ import com.dino.chat.api.common.exception.ValidationCode;
 import com.dino.chat.api.common.exception.ValidationError;
 import com.dino.chat.api.common.validator.RequestValidator;
 import com.dino.chat.api.common.validator.Validator;
-import com.dino.chat.api.member.command.application.dto.MemberCreateRequest;
-import com.dino.chat.api.member.command.application.validator.annotation.MemberCreateRequestQualifier;
+import com.dino.chat.api.member.command.application.dto.AdminCreateRequest;
+import com.dino.chat.api.member.command.application.validator.annotation.AdminCreateRequestQualifier;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -14,18 +14,18 @@ import java.util.List;
 import static com.dino.chat.api.common.enumeration.TextLengthRange.*;
 
 /**
- * {@code MemberCreateRequest}의 변수의 유효성을 검증하는 클래스
+ * {@code AdminCreateRequest}의 변수의 유효성을 검증하는 클래스
  */
 @Validator
-@MemberCreateRequestQualifier
-public class MemberCreateRequestValidator implements RequestValidator<MemberCreateRequest> {
+@AdminCreateRequestQualifier
+public class AdminCreateRequestValidator implements RequestValidator<AdminCreateRequest> {
 
     /**
      * {@code MemberCreateRequest} 유효성 검증
      * @param request 회원 생성 요청
      * @return List<ValidationError>
      */
-    public List<ValidationError> validate(MemberCreateRequest request){
+    public List<ValidationError> validate(AdminCreateRequest request){
         List<ValidationError> errors = new ArrayList<>();
 
         if(request == null){
@@ -35,7 +35,6 @@ public class MemberCreateRequestValidator implements RequestValidator<MemberCrea
             String password = request.getPassword();
             String name = request.getName();
             String mobile = request.getMobile();
-            String inviteCode = request.getInviteCode();
 
             if(!StringUtils.hasText(loginId)){
                 errors.add(ValidationError.of("memberLoginId", ValidationCode.NO_TEXT.getValue()));
@@ -67,14 +66,6 @@ public class MemberCreateRequestValidator implements RequestValidator<MemberCrea
                 int length = mobile.length();
                 if(MOBILE.getMin() > length || MOBILE.getMax() < mobile.length())
                     errors.add(ValidationError.of("memberMobile", ValidationCode.LENGTH.getValue()));
-            }
-
-            if(!StringUtils.hasText(inviteCode)){
-                errors.add(ValidationError.of("memberInviteCode", ValidationCode.NO_TEXT.getValue()));
-            } else {
-                int length = inviteCode.length();
-                if(MEMBER_INVITE_CODE.getMin() > length || MEMBER_INVITE_CODE.getMax() < length)
-                    errors.add(ValidationError.of("memberInviteCode", ValidationCode.LENGTH.getValue()));
             }
         }
 
