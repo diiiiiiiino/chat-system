@@ -65,7 +65,7 @@ public class AdminController {
     @PatchMapping("/{memberId}")
     public Response changeAdmin(
             @AuthenticationPrincipal SecurityMember securityAdmin,
-            @PathVariable Long memberId
+            @PathVariable("memberId") Long memberId
     ){
         adminChangeService.change(securityAdmin.getMember(), memberId);
         return Response.ok();
