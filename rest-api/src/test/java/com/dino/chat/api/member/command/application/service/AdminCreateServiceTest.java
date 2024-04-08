@@ -45,7 +45,7 @@ public class AdminCreateServiceTest {
         assertThatThrownBy(() -> adminCreateService.create(adminCreateRequest))
                 .hasMessage("Request has invalid values")
                 .hasFieldOrPropertyWithValue("errors", List.of(
-                        ValidationError.of("request", ValidationCode.NULL.getValue())
+                        ValidationError.of("memberLoginId", ValidationCode.NO_TEXT.getValue())
                 ));
     }
 

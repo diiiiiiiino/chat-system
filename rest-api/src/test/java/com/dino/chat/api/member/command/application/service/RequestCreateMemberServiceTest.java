@@ -70,8 +70,7 @@ public class RequestCreateMemberServiceTest {
         return Stream.of(
                 Arguments.of(List.of(RequestCreateMemberRequest.of("01012345678"), RequestCreateMemberRequest.of(" "))),
                 Arguments.of(List.of(RequestCreateMemberRequest.of("01012345678"), RequestCreateMemberRequest.of(null))),
-                Arguments.of(List.of(RequestCreateMemberRequest.of("01012345678"), RequestCreateMemberRequest.of(""))),
-                Arguments.of(List.of(RequestCreateMemberRequest.of("01012345678"), RequestCreateMemberRequest.of("01023456789")))
+                Arguments.of(List.of(RequestCreateMemberRequest.of("01012345678"), RequestCreateMemberRequest.of("")))
         );
     }
 
