@@ -4,6 +4,7 @@ import com.dino.chat.api.authority.command.application.exception.AuthorityNotFou
 import com.dino.chat.api.common.exception.ValidationErrorException;
 import com.dino.chat.api.common.http.response.Response;
 import com.dino.chat.api.member.command.application.dto.AdminCreateRequest;
+import com.dino.chat.api.member.command.application.dto.MemberCreateRequest;
 import com.dino.chat.api.member.command.application.dto.RequestCreateMemberRequest;
 import com.dino.chat.api.member.command.application.exception.HouseHoldNotFoundException;
 import com.dino.chat.api.member.command.application.exception.MemberNotFoundException;
@@ -42,7 +43,7 @@ public class AdminController {
             @ApiResponse(responseCode = "500", description = "서버 내부 오류")
     })
     @PostMapping
-    public Response createAdmin(@RequestBody AdminCreateRequest request){
+    public Response createAdmin(@RequestBody MemberCreateRequest request){
         adminCreateService.create(request);
 
         return Response.ok();

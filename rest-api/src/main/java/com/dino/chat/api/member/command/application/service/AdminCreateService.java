@@ -21,11 +21,11 @@ import java.util.List;
 public class AdminCreateService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RequestValidator<AdminCreateRequest> requestValidator;
+    private final RequestValidator<MemberCreateRequest> requestValidator;
 
     public AdminCreateService(MemberRepository memberRepository,
                               PasswordEncoder passwordEncoder,
-                              @MemberCreateRequestQualifier RequestValidator<AdminCreateRequest> requestValidator) {
+                              @MemberCreateRequestQualifier RequestValidator<MemberCreateRequest> requestValidator) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
         this.requestValidator = requestValidator;
@@ -56,13 +56,13 @@ public class AdminCreateService {
      * </ul>
      */
     @Transactional
-    public void create(AdminCreateRequest request) {
+    public void create(MemberCreateRequest request) {
         List<ValidationError> errors = requestValidator.validate(request);
         if(!errors.isEmpty()){
             throw new ValidationErrorException("Request has invalid values", errors);
         }
 
-        Member admin = MemberCreateRequest.newAdmin(request.getMemberCreateRequest(), passwordEncoder);
+        Member admin = MemberCreateRequest.newAdmin(request, passwordEncoder);
 
         memberRepository.save(admin);
     }

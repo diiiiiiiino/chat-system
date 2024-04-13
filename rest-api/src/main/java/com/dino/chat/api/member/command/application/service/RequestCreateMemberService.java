@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
 public class RequestCreateMemberService {
 
     private final MemberInviteCodeRepository memberInviteCodeRepository;
-    private final AlertCreateMemberService alertCreateMemberService;
+    private final Optional<AlertCreateMemberService> alertCreateMemberService;
     
     //todo : 트랜잭션 경계 설정
     /**
@@ -66,7 +67,7 @@ public class RequestCreateMemberService {
         memberInviteCodeRepository.saveAll(inviteCodes);
         
         for(MemberInvite inviteCode : inviteCodes){
-            alertCreateMemberService.alert(inviteCode.getMobile().toString(), inviteCode.getCode());
+            alertCreateMemberService.get().alert(inviteCode.getMobile().toString(), inviteCode.getCode());
         }
     }
 }
